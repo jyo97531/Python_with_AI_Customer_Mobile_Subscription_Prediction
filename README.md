@@ -5,13 +5,9 @@ Mobile Subscription Churn Prediction
 A Supervised Classification Study with Task-by-Task Walkthrough and Console Output
 
 Task type    ------------------------------  Binary classification (supervised learning)
-
 Dataset      ------------------------------  Telco Customer Churn (Kaggle / IBM sample)
-
 Models       ------------------------------  Decision Tree, Logistic Regression, Random Forest
-
 Language / stack     ----------------------  Python 3, scikit-learn, pandas, matplotlib, seaborn
-
 Deliverables    ---------------------------  churn script (.txt/.py) + results figure (.png)
 
 1. Executive Summary
@@ -35,9 +31,7 @@ The project targets the Telco Customer Churn dataset (an IBM sample widely distr
 3.1 Target encoding (non-standard)
 
 Original     -----           Meaning                      ---------         Encoded as
-
    No        ----  Customer continues the subscription.   ---------             1
-   
    Yes       ----  Customer leaves (churns)               ---------             0
 
 Note: this is the reverse of the field-standard convention (where 1 = churned). Here 1 = stays, 0 = leaves. Every metric in this report follows the project's own convention.
@@ -46,36 +40,23 @@ Note: this is the reverse of the field-standard convention (where 1 = churned). 
 The target is imbalanced — most customers are retained — which is why accuracy alone is a weak quality measure (a model that always predicts “continues” would already score ~74%).
 
   Class      ---   Label   ----    Share (reproduction run)
-
 Continues    ---    1      ----       73.7% (737 / 1000)
-
 Leaves       ---    0      ----       26.3% (263 / 1000)
 
 4. Pipeline Overview
 The script is organised as a linear, eleven-step pipeline. The next section walks through each step with its code and output.
 
 Step  --      Stage            ---------            Purpose
-
  1    --     Imports              ---        Load libraries.
- 
- 2    --     Data acquisition     ---        Load the Kaggle CSV (or generate 1,000 simulated customers).
- 
+ 2    --     Data acquisition     ---        Load the Kaggle CSV (or generate 1,000 simulated customers). 
  3    --     Exploration          ---        Inspect distribution, types, missing values.
- 
- 4    --     Cleaning             ---        Drop ID, coerce numerics, fill gaps, encode target + categoricals.
- 
+ 4    --     Cleaning             ---        Drop ID, coerce numerics, fill gaps, encode target + categoricals. 
  5    --     Feature selection    ---        Split into feature matrix X and target y.
- 
  6    --     Scaling              ---        Standardise features.
- 
  7    --     Split                ---        80/20 train/test, fixed seed.
- 
  8    --     Training             ---        Fit the three models.
- 
  9    --     Evaluation           ---        Accuracy + classification reports; pick best.
- 
  10   --    Visualisation         ---        Build and save the four-panel figure.
- 
  11   --    Scoring               ---        Predict churn for two example customers.
 
 5. Task-by-Task Walkthrough
@@ -101,13 +82,10 @@ Output
 📊 Churn Distribution:
 
 Churn
-
 No     737
-
 Yes    263
  
   ✅ Continuing (No Churn):  737 customers (73.7%)
- 
   ❌ Left (Churned):          263 customers (26.3%)
  
 📋 Missing Values: all columns = 0
@@ -120,9 +98,7 @@ Caveat: LabelEncoder imposes a false numeric order on unordered categories (e.g.
 Output
 
 Target column converted:
-
   'No'  (continues)  → 1
-  
   'Yes' (leaves)     → 0
  
 ✅ Encoded 11 categorical columns
@@ -165,11 +141,8 @@ Step 8 — Train the models
 Fits all three estimators on the training set.
 
 Code
-
 dt = DecisionTreeClassifier(max_depth=5, random_state=42).fit(X_train, y_train)
-
 lr = LogisticRegression(max_iter=1000, random_state=42).fit(X_train, y_train)
-
 rf = RandomForestClassifier(n_estimators=100, random_state=42).fit(X_train, y_train)
 
 Output
